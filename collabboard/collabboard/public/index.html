@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CollabBoard · Real-Time Collaborative Whiteboard &amp; Chat</title>
+  <meta name="description" content="Draw together on a shared whiteboard and talk in the same room. No sign-up, just a room code.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='3' width='28' height='22' rx='5' fill='%232f5bff'/%3E%3Cpath d='M8 18c3-8 6 2 9-4s4 0 7-4' fill='none' stroke='%23ffd23f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="3" width="28" height="22" rx="5" fill="#2f5bff"/><path d="M8 18c3-8 6 2 9-4s4 0 7-4" fill="none" stroke="#ffd23f" stroke-width="3" stroke-linecap="round"/><path d="M10 29l6-4h6" fill="none" stroke="#2f5bff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> CollabBoard</a>
+    <nav aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Sketch ideas together, while you talk them through.</h1>
+        <p class="lede">A shared whiteboard with built-in chat. Everyone in the room sees every line the moment it is drawn. No account needed.</p>
+
+        <div class="start-card">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" type="text" maxlength="24" autocomplete="nickname" placeholder="e.g. Lucky">
+          </div>
+          <button id="createBtn" class="btn primary" type="button" style="width:100%">Create a new room</button>
+          <div class="divider">or join one</div>
+          <form id="joinForm" class="row" novalidate>
+            <input id="code" type="text" maxlength="12" placeholder="ROOM CODE" aria-label="Room code" autocomplete="off">
+            <button class="btn" type="submit">Join room</button>
+          </form>
+          <p id="formError" class="form-error" role="alert"></p>
+        </div>
+      </div>
+
+      <div class="demo" aria-hidden="true">
+        <div class="demo-bar"><i></i><i></i><i></i></div>
+        <svg viewBox="0 0 640 400">
+          <rect width="640" height="400" fill="#fff"/>
+          <rect class="draw" x="70" y="70" width="190" height="110" rx="10" fill="none" stroke="#14213d" stroke-width="5"/>
+          <path class="draw d2" d="M260 125 H350 M350 125 l-14 -10 M350 125 l-14 10" fill="none" stroke="#2f5bff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <ellipse class="draw d2" cx="430" cy="125" rx="80" ry="55" fill="none" stroke="#ef4444" stroke-width="5"/>
+          <path class="draw d3" d="M80 260 C140 210 170 320 230 265 S320 230 380 280 S470 300 560 245" fill="none" stroke="#14213d" stroke-width="5" stroke-linecap="round"/>
+          <text x="92" y="132" font-family="DM Sans, sans-serif" font-weight="700" font-size="26" fill="#14213d">Idea</text>
+          <text x="392" y="132" font-family="DM Sans, sans-serif" font-weight="700" font-size="26" fill="#ef4444">Plan</text>
+          <g class="cur"><path d="M455 205l13 8-6 1.5-2.5 6.5z" fill="#22c55e" stroke="#fff" stroke-width="1.2"/><rect x="470" y="218" width="44" height="18" rx="6" fill="#22c55e"/><text x="477" y="231" font-size="11" font-family="DM Sans, sans-serif" font-weight="700" fill="#fff">Asha</text></g>
+          <g class="cur" style="animation-delay:-2s"><path d="M175 300l13 8-6 1.5-2.5 6.5z" fill="#8b5cf6" stroke="#fff" stroke-width="1.2"/><rect x="190" y="313" width="38" height="18" rx="6" fill="#8b5cf6"/><text x="197" y="326" font-size="11" font-family="DM Sans, sans-serif" font-weight="700" fill="#fff">Ravi</text></g>
+        </svg>
+        <div class="demo-chat">
+          <p><b>Asha</b>Can we split this into two steps?</p>
+          <p class="me"><b>You</b>Yes, drawing it now.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <h2>Everything a small team needs to think on one canvas</h2>
+      <p class="sub">Built for classes, study groups, interviews and quick design reviews.</p>
+      <div class="features">
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
+          <h3>Live drawing</h3>
+          <p>Pen strokes stream to everyone as you draw, with adjustable colour and brush size.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M4 19l5-5"/></svg>
+          <h3>Shapes, arrows and text</h3>
+          <p>Add lines, arrows, rectangles, ellipses and labels to turn a sketch into a diagram.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1-4.6A8 8 0 1121 12z"/></svg>
+          <h3>Room chat</h3>
+          <p>Talk next to the board. See who is typing and catch up on earlier messages when you join.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>
+          <h3>Live cursors</h3>
+          <p>Every person gets a colour and a name tag, so you always know who is pointing at what.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg>
+          <h3>Undo and redo</h3>
+          <p>Each person undoes only their own work, so nobody removes a teammate's drawing by accident.</p>
+        </article>
+        <article class="feature">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+          <h3>Save as an image</h3>
+          <p>Download the finished board as a PNG, or share the room link so others can join in.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <h2>Start in three steps</h2>
+      <ol class="steps">
+        <li><h3>Create a room</h3><p>Enter your name and press the button. You get a six-character room code.</p></li>
+        <li><h3>Send the link</h3><p>Copy the invite link from the top bar and share it with your group.</p></li>
+        <li><h3>Draw and chat</h3><p>Everyone who opens the link lands on the same board, in real time.</p></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>CollabBoard · Real-Time Collaborative Whiteboard &amp; Chat Application</span>
+    <span>Built with Node.js, Express, Socket.IO and HTML Canvas</span>
+  </footer>
+
+  <script src="/js/landing.js"></script>
+</body>
+</html>

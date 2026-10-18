@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Room · CollabBoard</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='3' width='28' height='22' rx='5' fill='%232f5bff'/%3E%3Cpath d='M8 18c3-8 6 2 9-4s4 0 7-4' fill='none' stroke='%23ffd23f' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="room-page">
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="/" title="Leave room"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="3" width="28" height="22" rx="5" fill="#2f5bff"/><path d="M8 18c3-8 6 2 9-4s4 0 7-4" fill="none" stroke="#ffd23f" stroke-width="3" stroke-linecap="round"/><path d="M10 29l6-4h6" fill="none" stroke="#2f5bff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span>CollabBoard</span></a>
+      <div class="room-chip">
+        <i id="statusDot" data-state="connecting"></i>
+        <span id="roomCode"></span>
+        <span class="status-text" id="statusText">Connecting</span>
+        <button class="copy" id="copyLink" type="button">Copy invite link</button>
+      </div>
+      <div class="avatars" id="avatars" aria-label="People in this room"></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn only-mobile" id="sidebarBtn" type="button" aria-label="Open chat">
+          <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1-4.6A8 8 0 1121 12z"/></svg>
+          <span id="unread" hidden>0</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="toolbar" id="toolbar" aria-label="Drawing tools">
+        <button class="tool" data-tool="pen" title="Pen (P)" aria-label="Pen"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="tool" data-tool="eraser" title="Eraser (E)" aria-label="Eraser"><svg viewBox="0 0 24 24"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></button>
+        <button class="tool" data-tool="line" title="Line (L)" aria-label="Line"><svg viewBox="0 0 24 24"><path d="M5 19L19 5"/></svg></button>
+        <button class="tool" data-tool="arrow" title="Arrow (A)" aria-label="Arrow"><svg viewBox="0 0 24 24"><path d="M5 19L19 5M9 5h10v10"/></svg></button>
+        <button class="tool" data-tool="rect" title="Rectangle (R)" aria-label="Rectangle"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1"/></svg></button>
+        <button class="tool" data-tool="ellipse" title="Ellipse (O)" aria-label="Ellipse"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg></button>
+        <button class="tool" data-tool="text" title="Text (T)" aria-label="Text"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
+
+        <div class="tool-sep"></div>
+        <div class="swatches" role="group" aria-label="Colours">
+          <button class="swatch" data-color="#14213d" aria-label="Navy"></button>
+          <button class="swatch" data-color="#ef4444" aria-label="Red"></button>
+          <button class="swatch" data-color="#f97316" aria-label="Orange"></button>
+          <button class="swatch" data-color="#eab308" aria-label="Yellow"></button>
+          <button class="swatch" data-color="#22c55e" aria-label="Green"></button>
+          <button class="swatch" data-color="#2f5bff" aria-label="Blue"></button>
+          <button class="swatch" data-color="#8b5cf6" aria-label="Purple"></button>
+          <button class="swatch" data-color="#ec4899" aria-label="Pink"></button>
+        </div>
+        <input type="color" id="colorPicker" value="#14213d" aria-label="Custom colour">
+
+        <div class="tool-sep"></div>
+        <div class="size-box">
+          <span id="sizeDot"></span>
+          <input type="range" id="sizeInput" min="1" max="24" value="4" aria-label="Brush size">
+        </div>
+
+        <div class="tool-sep"></div>
+        <button class="tool" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg></button>
+        <button class="tool" id="redoBtn" title="Redo (Ctrl+Y)" aria-label="Redo"><svg viewBox="0 0 24 24"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/></svg></button>
+        <button class="tool" id="saveBtn" title="Save as PNG" aria-label="Save as PNG"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg></button>
+        <button class="tool danger" id="clearBtn" title="Clear board" aria-label="Clear board"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></button>
+      </aside>
+
+      <section class="canvas-area">
+        <div class="stage" id="stage">
+          <canvas id="board" width="1600" height="900"></canvas>
+          <canvas id="preview" width="1600" height="900"></canvas>
+          <div id="cursors"></div>
+          <div class="empty-hint" id="emptyHint"><div><strong>A blank board</strong>Pick a tool and start drawing. Others in the room will see it live.</div></div>
+        </div>
+      </section>
+
+      <aside class="sidebar" id="sidebar" aria-label="Chat and people">
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" data-tab="chat" aria-selected="true">Chat</button>
+          <button class="tab" role="tab" data-tab="people" aria-selected="false">People <span class="count" id="userCount">0</span></button>
+          <button class="close-sidebar" id="closeSidebar" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="panel" id="chatPanel">
+          <div id="messages" aria-live="polite"></div>
+          <div class="typing" id="typing"></div>
+          <form class="chat-form" id="chatForm" autocomplete="off">
+            <input id="chatInput" type="text" maxlength="500" placeholder="Write a message" aria-label="Message">
+            <button class="btn primary" type="submit">Send</button>
+          </form>
+        </div>
+        <div class="panel" id="peoplePanel" hidden>
+          <ul id="people"></ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="modal" id="nameModal" hidden>
+    <form class="modal-card" id="nameForm">
+      <h2>What should we call you?</h2>
+      <p>Your name appears next to your cursor and in chat.</p>
+      <div class="field">
+        <label for="nameInput">Your name</label>
+        <input id="nameInput" type="text" maxlength="24" required autocomplete="nickname">
+      </div>
+      <button class="btn primary" type="submit" style="width:100%">Join the room</button>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/board.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/room.js"></script>
+</body>
+</html>

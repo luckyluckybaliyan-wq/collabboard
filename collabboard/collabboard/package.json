@@ -1,0 +1,17 @@
+{
+  "name": "collabboard",
+  "version": "1.0.0",
+  "description": "Real-Time Collaborative Whiteboard & Chat Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["whiteboard", "socket.io", "real-time", "chat", "express", "canvas"],
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
